@@ -33,7 +33,7 @@ lazy_static = "1.5"
 confy = { git = "https://github.com/rustdesk-org/confy" }
 dirs-next = "2.0"
 filetime = "0.2"
-sodiumoxide = "0.2"
+sodiumoxide = { git = "https://github.com/FrankHan052176/sodiumoxide", branch = "master" }
 regex = "1.11"
 tokio-socks = { git = "https://github.com/rustdesk-org/tokio-socks" }
 chrono = "0.4"
