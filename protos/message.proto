@@ -696,6 +696,8 @@ message OptionMessage {
   BoolOption disable_camera = 17;
   BoolOption terminal_persistent = 18;
   BoolOption show_my_cursor = 19;
+  // Set only by the OHOS client when an explicit high-FPS Surface mode is requested.
+  bool ohos_high_fps = 20;
 }
 
 message TestDelay {
