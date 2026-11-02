@@ -91,7 +91,7 @@ lazy_static::lazy_static! {
     pub static ref APP_DIR: RwLock<String> = Default::default();
 }
 
-#[cfg(any(target_os = "android", target_os = "ios"))]
+#[cfg(any(target_os = "android", target_os = "ios", target_env = "ohos"))]
 lazy_static::lazy_static! {
     pub static ref APP_HOME_DIR: RwLock<String> = Default::default();
 }
@@ -902,9 +902,9 @@ impl Config {
     /// where an attacker can manipulate the environment variable to inject malicious
     /// paths into privileged operations.
     pub fn get_home() -> PathBuf {
-        #[cfg(any(target_os = "android", target_os = "ios"))]
+        #[cfg(any(target_os = "android", target_os = "ios", target_env = "ohos"))]
         return PathBuf::from(APP_HOME_DIR.read().unwrap().as_str());
-        #[cfg(not(any(target_os = "android", target_os = "ios")))]
+        #[cfg(not(any(target_os = "android", target_os = "ios", target_env = "ohos")))]
         {
             if let Some(path) = dirs_next::home_dir() {
                 patch(path)
@@ -917,13 +917,13 @@ impl Config {
     }
 
     pub fn path<P: AsRef<Path>>(p: P) -> PathBuf {
-        #[cfg(any(target_os = "android", target_os = "ios"))]
+        #[cfg(any(target_os = "android", target_os = "ios", target_env = "ohos"))]
         {
             let mut path: PathBuf = APP_DIR.read().unwrap().clone().into();
             path.push(p);
             return path;
         }
-        #[cfg(not(any(target_os = "android", target_os = "ios")))]
+        #[cfg(not(any(target_os = "android", target_os = "ios", target_env = "ohos")))]
         {
             #[cfg(not(target_os = "macos"))]
             let org = "".to_owned();
